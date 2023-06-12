@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tree</title>
+    <style>
+        #canvas {
+             border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" height="500" width="1000"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas')
+        var ctx = canvas.getContext('2d')
+        // ctx.beginPath();
+        // ctx.moveTo(50,50);
+        // ctx.lineTo(100,100);
+        // ctx.lineTo(50,100);
+        // ctx.fill();
+        ctx.beginPath();
+        function drawTree(x1, y1, angle, depth) {
+            if (depth) {
+                var x2 = x1 + Math.round((Math.cos(Math.PI / 180 * angle) * depth * 9.0));
+                var y2 = y1 + Math.round((Math.sin(Math.PI / 180 * angle) * depth * 9.0));
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+                setTimeout(function () {
+                    drawTree(x2, y2, angle - 25, depth - 1);
+                    drawTree(x2, y2, angle + 25, depth - 1);
+                }, 500);
+            }
+        }
+        drawTree(500, 500, -90, 10);
+    </script>
+</body>
+
+</html>

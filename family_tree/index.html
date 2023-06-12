@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0,user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 80%;
+            margin: 10px auto;
+        }
+
+        .show {
+            resize: none;
+        }
+
+        .calc {
+            width: 90%;
+            margin: 10px auto;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            min-width: 300px;
+            max-width: 500px;
+        }
+
+        .calc p {
+            display: flex;
+            margin: 0;
+        }
+
+        .calc p button {
+            width: 25%;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="http://tv.cntv.cn/video/C10302/a6243c0be1b040939cfb9cd79a567bbf">20130130 百家姓(第一部) 4 郑王冯陈</a>
+    <p>冯姓是一个多民族、多源流的古老姓氏，在当今中国大陆姓氏排行榜上名列第二十七位，在宋版《百家姓》中列第九位，在以人口为序的中国姓氏中排名第27位，在台湾省名列第七十二位，人口约八百六十一万五千余，占全国人口的0.64%左右。主要分布于中国的广东、河南、河北、江苏、山东和云南等地。</p>
+    <p>汉唐时期，冯氏繁衍很快，从原来的发源地陕西，发展到了现今河南、河北、山西及福建等地。冯姓的宗族较多，唐代的《元和姓纂》说，冯氏出颍川（郡治今河南许昌）者，是东汉征西大将军冯异的后代；出上党（今山西长治）者，是西汉左将军冯奉世的后代；出长乐信都者，是汉代宜都侯冯参的后代；出京兆（今陕西西安）者，是北燕昭成帝冯弘的后代；出弘农（今河南灵宝）者，是冯弘之孙冯宁的后代；出河间（今河北献县东南）者，是唐监察御史冯师古的后代。出岭南者，是唐越国公冯盎的后裔。</p>
+    <div class="calc">
+        <textarea disabled class="show" name="" id="" cols="30" rows="5"></textarea>
+        <p>
+            <button class="btn" data-value="爸爸">父</button>
+            <button class="btn" data-value="妈妈">母</button>
+            <button class="btn" data-value="儿子">子</button>
+            <button class="btn" data-value="女儿">女</button>
+        </p>
+        <p>
+            <button class="btn" data-value="哥哥">兄</button>
+            <button class="btn" data-value="弟弟">弟</button>
+            <button class="btn" data-value="姐姐">姐</button>
+            <button class="btn" data-value="妹妹">妹</button>
+        </p>
+        <p>
+            <button class="btn" data-value="老公">夫</button>
+            <button class="btn" data-value="老婆">妻</button>
+            <button class="inp" data-value="清空">清空</button>
+            <button class="inp" data-value="=">=</button>
+        </p>
+        <textarea disabled class="show" name="" id="" cols="30" rows="5"></textarea>
+    </div>
+    <script>
+        var textareas = document.getElementsByTagName('textarea');
+        textareas[0].value = '当事人';
+        var btns = document.getElementsByClassName('btn');
+        var inps = document.getElementsByClassName('inp');
+
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].onclick = function () {
+                var value = textareas[0].value.trim();
+                var name = this.getAttribute('data-value');
+                textareas[0].value = value + '的' + name;
+            }
+        }
+
+        inps[0].onclick = function () {
+            textareas[0].value = '当事人';
+            textareas[1].value = '';
+        };
+
+        // inps[1].onclick = function () {
+        //     var arr = textareas[0].value.split('的');
+        //     for (var i = 1; i < arr.length; i++) {
+        //         console.log(arr[i]);
+        //     }
+        // };
+        inps[1].onclick = function () {
+            var value = textareas[0].value.trim();
+            value = value.replace('当事人的', '');
+            if (value) {
+                var result = relationship({ text: value });
+                textareas[1].value = '';
+                if (result.length) {
+                    textareas[1].value = result.join('\n');
+                } else {
+                    textareas[1].value = '呃...';
+                }
+            } else {
+                textareas[1].value = '';
+            }
+        }
+    </script>
+    <script src="./relationship.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: black;
+        }
+
+        p {
+            margin: auto;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <p>视频监控录制中...</p>
+    <p>监控图像上传中...</p>
+    <p><button id="btn">开始</button></p>
+    <p><video id="video" autoplay style="width: 480px;height: 320px"></video></p>
+    <script>
+        // 浏览器应该是为了防止恶意应用,所以esc和f11这两个用来退出全屏的按钮无法屏蔽
+        // 强制全屏的需求 只能用本地应用来解决了
+
+        document.body.onkeydown = function (event) {
+            if (window.event) {
+                console.log(event.keyCode)
+                //alert("不允许使用任何键盘按键");
+                if (event.keyCode == 27) {//如果按下Esc键
+                    event.keyCode = 0;
+                    event.returnValue = false;
+                    document.documentElement.requestFullscreen();
+                }
+                if (event.keyCode == 70) {
+                    // 弹出出入密码的对话框
+
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        var video = document.querySelector('video');
+        // 想要获取一个最接近 1280x720 的相机分辨率
+        var constraints = { audio: true, video: { width: 1280, height: 720 } };
+
+        document.getElementById("btn").onclick = function () {
+            if (this.innerText == "开始") {
+                // 改变文字
+                this.innerText = "退出";
+                // 进入全屏
+                document.documentElement.requestFullscreen();
+                // 显示视频
+                navigator.mediaDevices.getUserMedia(constraints)
+                    .then(function (mediaStream) {
+                        video.srcObject = mediaStream;
+                        video.onloadedmetadata = function (e) {
+                            video.play();
+                        };
+                    })
+                    .catch(function (err) { console.log(err.name + ": " + err.message); }); // 总是在最后检查错误
+            } else {
+                // prompt 并校验密码 密码错误就return
+
+                // 退出全屏
+
+
+                // 改变文字
+                this.innerText = "开始";
+                // 停止视频
+                window.location.reload();
+            }
+        }
+
+    </script>
+</body>
+
+</html>

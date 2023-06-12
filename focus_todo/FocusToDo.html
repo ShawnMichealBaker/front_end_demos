@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>专注助手</h1>
+    <audio id="myMusic" src="./bgm_Rain.ogg" autoplay controls></audio>
+    <h3>番茄时间内，先专心学习，有什么想法可以先记在这里</h3>
+    <textarea></textarea>
+    <!-- 然后再加个背景和倒计时就完了 -->
+    <script>
+        // 现在的问题是无法调整到 毫无感觉的无缝循环
+        var audio = document.getElementById("myMusic"); 
+        // var audio_file = new Audio('./bgm_Rain.ogg');
+        audio.addEventListener('timeupdate', function () {
+            var buffer = .8;
+            if (this.currentTime > this.duration - buffer) {
+                this.currentTime = 1.6;
+                this.play();
+            }
+        }, false);
+    </script>
+</body>
+
+</html>
