@@ -32,4 +32,5 @@ https://shawnmichealbaker.github.io/front_end_demos/index.html
 
 ## others
 * 交换变量 
-* *(others下还有:block-chain和webpack打包工具的模拟)
+* others中有:block-chain和webpack打包工具的模拟
+* music中有一些程序运行的提示音
